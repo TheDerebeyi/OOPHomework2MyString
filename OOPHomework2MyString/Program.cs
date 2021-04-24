@@ -7,53 +7,61 @@ namespace OOPHomework2MyString
     {
         static void Main(string[] args)
         {
-            BenimString benimString = new BenimString("Ami?");
-            char[][] well = benimString.DiziyeAyir(' ');
-            for (int i = 0; i < well.GetUpperBound(0)+1; i++)
-            {
-                for (int j = 0; j < well[i].Length; j++)
-                {
-                    Console.Write(well[i][j]);
-                }
+            string mesaj = "Levin, katibin belli ki kendisinin de pek anlamadığı bir tutanağı dura dura okumasını dinedi; fakat Levin, katibin yüzüne bakınca onun ne kadar sevimli, iyi bir insan olduğunu gördü.";
+            string mesaj2 = "Bu tutanağı okurken şaşırmasından ve utanmasından anlaşılıyordu.";
 
-                Console.WriteLine();
-            }
+            BenimString benimString = new BenimString(mesaj);
+            BenimString benimString2 = new BenimString(mesaj2);
 
-            Console.WriteLine();
-            Console.WriteLine();
+            Console.Write("BenimString sınıfı test ediliyor...\n"+
+                              "Karakter dizisi: " + mesaj +
+                              "\nİkinci karakter dizisi: "+ mesaj2+
+                              "\nElemanSayisi(): " + benimString.ElemanSayisi() +
+                              "\n\nBirlestir(): ");
 
-            BenimString bbenimString = new BenimString("A");
-            Console.WriteLine(benimString.DegerIndis(bbenimString,0));
+            benimString.Birlestir(benimString2);
+
+            Console.Write(benimString.KarakterDizisi +
+                              "\n\nİndis 10 iken ArayaGir(): ");
+
+            benimString.ArayaGir(10,mesaj2);
+
+            Console.Write(benimString.KarakterDizisi +
+                          "\n\nİndis 10, alınacak karakter sayısı 10 iken DegerAl(): " +
+                          benimString.DegerAl(10, 10).KarakterDizisi);
+
+            Console.Write("\n\nTersCevir(): ");
+
+
+
+            benimString.TersCevir();
+            Console.Write(benimString.KarakterDizisi+
+                          "\n\nSıralaAZ(): ");
+            string mesaj3 = benimString.KarakterDizisi;
+            benimString.SiralaAZ();
+
+            Console.Write(benimString.KarakterDizisi+
+                          "\n\nSiralaZA(): ");
+
+            benimString.SiralaZA();
+
+            Console.Write(benimString.KarakterDizisi);
         }
     }
 
     class BenimString
     {
-        public char[] _karakterDizisi = new char[0];
+        private string _karakterDizisi = "";
 
-        public BenimString(string String)
+        public string KarakterDizisi
         {
-            int sayac = 0;
-
-            foreach (var karakter in String)
-            {
-                sayac++;
-            }
-
-            _karakterDizisi = new char[sayac];
-
-            for (int i = 0; i < sayac; i++)
-            {
-                _karakterDizisi[i] = String[i];
-            }
+            get { return _karakterDizisi; }
+            set { _karakterDizisi = value; }
         }
-        public BenimString(char[] String)
+
+        public BenimString(string karakterDizisi)
         {
-            _karakterDizisi = String;
-        }
-        public BenimString(BenimString benimString)
-        {
-            _karakterDizisi = benimString._karakterDizisi;
+            _karakterDizisi = karakterDizisi;
         }
 
         public int ElemanSayisi()
@@ -68,197 +76,91 @@ namespace OOPHomework2MyString
             return sayac;
         }
 
-        public void Birlestir(BenimString benimString)
+        public void Birlestir(BenimString karakterDizisi)
         {
-            char[] gecici = new char[ElemanSayisi() + benimString.ElemanSayisi()];
-
-            for (int i = 0; i < ElemanSayisi(); i++)
-            {
-                gecici[i] = _karakterDizisi[i];
-            }
-
-            for (int i = ElemanSayisi(); i < ElemanSayisi() + benimString.ElemanSayisi(); i++)
-            {
-                gecici[i] = benimString._karakterDizisi[i - ElemanSayisi()];
-            }
-
-            _karakterDizisi = gecici;
-        }
-        public void Birlestir(string _string)
-        {
-            char[] gecici = new char[ElemanSayisi() + _string.Length];
-
-            for (int i = 0; i < ElemanSayisi(); i++)
-            {
-                gecici[i] = _karakterDizisi[i];
-            }
-
-            for (int i = ElemanSayisi(); i < ElemanSayisi() + _string.Length; i++)
-            {
-                gecici[i] = _string[i - ElemanSayisi()];
-            }
-
-            _karakterDizisi = gecici;
-        }
-        public void Birlestir(char[] karakterDizisi)
-        {
-            char[] gecici = new char[ElemanSayisi() + karakterDizisi.Length];
-
-            for (int i = 0; i < ElemanSayisi(); i++)
-            {
-                gecici[i] = _karakterDizisi[i];
-            }
-
-            for (int i = ElemanSayisi(); i < ElemanSayisi() + karakterDizisi.Length; i++)
-            {
-                gecici[i] = karakterDizisi[i - ElemanSayisi()];
-            }
-
-            _karakterDizisi = gecici;
+            _karakterDizisi += karakterDizisi.KarakterDizisi;
         }
 
-        public void ArayaGir(int indis, string _string)
+        public void ArayaGir(int indis, string karakterDizisi)
         {
-            char[] gecici = new char[ElemanSayisi() + _string.Length];
-
-            for (int i = 0; i < indis; i++)
-            {
-                gecici[i] = _karakterDizisi[i];
-            }
-
-            for (int i = indis; i < indis + _string.Length; i++)
-            {
-                gecici[i] = _string[i - indis];
-            }
-
-            for (int i = indis + _string.Length; i < ElemanSayisi() + _string.Length; i++)
-            {
-                gecici[i] = _karakterDizisi[i - indis - _string.Length];
-            }
-
-            _karakterDizisi = gecici;
-        }
-        public void ArayaGir(int indis, BenimString benimString)
-        {
-            char[] gecici = new char[ElemanSayisi() + benimString.ElemanSayisi()];
-
-            for (int i = 0; i < indis; i++)
-            {
-                gecici[i] = _karakterDizisi[i];
-            }
-
-            for (int i = indis; i < indis + benimString.ElemanSayisi(); i++)
-            {
-                gecici[i] = benimString._karakterDizisi[i - indis];
-            }
-
-            for (int i = indis + benimString.ElemanSayisi(); i < ElemanSayisi() + benimString.ElemanSayisi(); i++)
-            {
-                gecici[i] = _karakterDizisi[i - indis - benimString.ElemanSayisi()];
-            }
-
-            _karakterDizisi = gecici;
-        }
-
-        public void ArayaGir(int indis, char[] karakterDizisi)
-        {
-            char[] gecici = new char[ElemanSayisi() + karakterDizisi.Length];
-
-            for (int i = 0; i < indis; i++)
-            {
-                gecici[i] = _karakterDizisi[i];
-            }
-
-            for (int i = indis; i < indis + karakterDizisi.Length; i++)
-            {
-                gecici[i] = karakterDizisi[i - indis];
-            }
-
-            for (int i = indis + karakterDizisi.Length; i < ElemanSayisi() + karakterDizisi.Length; i++)
-            {
-                gecici[i] = _karakterDizisi[i - indis - karakterDizisi.Length];
-            }
-
-            _karakterDizisi = gecici;
+            _karakterDizisi = DegerAl(0, indis).KarakterDizisi + karakterDizisi + DegerAl(indis, ElemanSayisi() - indis).KarakterDizisi;
         }
 
         public BenimString DegerAl(int indis, int karakterSayisi)
         {
+            string karakterDizisi = "";
             char[] gecici = new char[karakterSayisi];
 
-            for (int i = indis; i < indis+karakterSayisi; i++)
+            for (int i = indis; i < indis + karakterSayisi; i++)
             {
                 gecici[i - indis] = _karakterDizisi[i];
             }
 
-            BenimString benimString = new BenimString(gecici);
+            for (int i = 0; i < karakterSayisi; i++)
+            {
+                karakterDizisi += gecici[i];
+            }
+
+            BenimString benimString = new BenimString(karakterDizisi);
 
             return benimString;
         }
 
-        public char[][] DiziyeAyir(char karakter)
+        public BenimString[] DiziyeAyir(char karakter)
         {
-            int indis1 = 0, indis2 = 0;
+            int boyut = 1;
 
-            char[][] gecici1 = new char[indis1+1][], gecici2;
-            gecici1[indis1] = new char[indis2];
+            BenimString[] benimStrings = new BenimString[boyut];
 
-            foreach (var _karakter in _karakterDizisi)
+            for (int i = 0; i < ElemanSayisi(); i++)
             {
-                if (karakter != _karakter)
+                if (_karakterDizisi[i] == karakter)
                 {
-                    gecici2 = new char[1][]; 
-                    gecici2[0] = gecici1[indis1];
-                    gecici1[indis1] = new char[indis2 + 1];
+                    BenimString[] gecici = new BenimString[boyut];
 
-                    for (int j = 0; j < gecici2[0].Length; j++)
+                    for (int j = 0; j < boyut; j++)
                     {
-                        gecici1[indis1][j] = gecici2[0][j];
+                        gecici[j] = benimStrings[j];
                     }
-                    
-                    gecici1[indis1][indis2] = _karakter;
 
-                    indis2++;
+                    boyut++;
+
+                    benimStrings = new BenimString[boyut];
+
+                    for (int j = 0; j < boyut - 1; j++)
+                    {
+                        benimStrings[j] = gecici[j];
+                    }
+
+                    continue;
                 }
-                else
-                {
-                    indis1++;
-                    indis2 = 0;
 
-                    gecici2 = gecici1;
-                    gecici1 = new char[indis1+1][];
-
-                    for (int i = 0; i < indis1; i++)
-                    {
-                        gecici1[i] = new char[gecici2[i].Length];
-                    }
-
-                    for (int i = 0; i < gecici2.GetUpperBound(0)+1; i++)
-                    {
-                        for (int j = 0; j < gecici2[i].Length; j++)
-                        {
-                            gecici1[i][j] = gecici2[i][j];
-                        }
-                    }
-
-                    gecici1[indis1] = new char[0];
-                }
+                benimStrings[boyut - 1].KarakterDizisi += _karakterDizisi[i];
             }
 
-            return gecici1;
+            return benimStrings;
         }
 
         public char[] CharDiziyeDonustur()
         {
-            return _karakterDizisi;
+            int elemanSayisi = ElemanSayisi();
+
+            char[] karakterDizisi = new char[elemanSayisi];
+
+            for (int i = 0; i < elemanSayisi; i++)
+            {
+                karakterDizisi[i] = _karakterDizisi[i];
+            }
+
+            return karakterDizisi;
         }
 
-        public int DegerIndis(BenimString benimString, int indis)
+        public int DegerIndis(BenimString benimString)
         {
-            int _indis = -1;
+            int indis = -1;
             bool bulunduMu;
 
-            for (int i = indis; i < ElemanSayisi()-benimString.ElemanSayisi()+1; i++)
+            for (int i = 0; i < ElemanSayisi() - benimString.ElemanSayisi() + 1; i++)
             {
                 bulunduMu = true;
                 for (int j = 0; j < benimString.ElemanSayisi(); j++)
@@ -271,37 +173,130 @@ namespace OOPHomework2MyString
 
                 if (bulunduMu)
                 {
-                    _indis = i;
+                    indis = i;
                     break;
                 }
             }
 
-            return _indis;
+            return indis;
+        }
+
+        public int DegerIndis(BenimString benimString, int baslangicIndis)
+        {
+            int indis = -1;
+            bool bulunduMu;
+
+            for (int i = baslangicIndis; i < ElemanSayisi() - benimString.ElemanSayisi() + 1; i++)
+            {
+                bulunduMu = true;
+                for (int j = 0; j < benimString.ElemanSayisi(); j++)
+                {
+                    if (_karakterDizisi[i + j] != benimString._karakterDizisi[j])
+                    {
+                        bulunduMu = false;
+                    }
+                }
+
+                if (bulunduMu)
+                {
+                    indis = i;
+                    break;
+                }
+            }
+
+            return indis;
         }
 
         public void SiralaAZ()
         {
+            char[] gecici = CharDiziyeDonustur();
 
+            for (int i = 0; i < ElemanSayisi() - 1; i++)
+            {
+                bool islemYapildiMi = false;
+
+                for (int j = 1; j < ElemanSayisi(); j++)
+                {
+                    if (gecici[j - 1] > gecici[j])
+                    {
+                        char charGecici = gecici[j - 1];
+                        gecici[j - 1] = gecici[j];
+                        gecici[j] = charGecici;
+                        islemYapildiMi = true;
+                    }
+                }
+
+                if (islemYapildiMi)
+                {
+                    islemYapildiMi = false;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            _karakterDizisi = "";
+
+            foreach (var karakter in gecici)
+            {
+                _karakterDizisi += karakter;
+            }
         }
 
         public void SiralaZA()
         {
+            char[] gecici = CharDiziyeDonustur();
 
+            for (int i = 0; i < ElemanSayisi() - 1; i++)
+            {
+                bool islemYapildiMi = false;
+
+                for (int j = 1; j < ElemanSayisi(); j++)
+                {
+                    if (gecici[j - 1] < gecici[j])
+                    {
+                        char charGecici = gecici[j - 1];
+                        gecici[j - 1] = gecici[j];
+                        gecici[j] = charGecici;
+                        islemYapildiMi = true;
+                    }
+                }
+
+                if (islemYapildiMi)
+                {
+                    islemYapildiMi = false;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            _karakterDizisi = "";
+
+            foreach (var karakter in gecici)
+            {
+                _karakterDizisi += karakter;
+            }
         }
 
         public void TersCevir()
         {
             char[] gecici = new char[ElemanSayisi()];
 
-            for (int i = ElemanSayisi(); i > 0; i--)
+            for (int i = 0; i < ElemanSayisi(); i++)
             {
-                for (int j = 0; j < ElemanSayisi(); j++)
-                {
-                    gecici[j] = _karakterDizisi[i];
-                }
+                gecici[i] = _karakterDizisi[ElemanSayisi() - i - 1];
+                
             }
 
-            _karakterDizisi = gecici;
+            _karakterDizisi = "";
+
+            foreach (var karakter in gecici)
+            {
+                _karakterDizisi += karakter;
+            }
         }
     }
 }
