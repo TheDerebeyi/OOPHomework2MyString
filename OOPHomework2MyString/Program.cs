@@ -1,6 +1,17 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
+﻿/****************************************************************************
+**	    				    SAKARYA ÜNİVERSİTESİ
+**	    			BİLGİSAYAR VE BİLİŞİM BİLİMLERİ FAKÜLTESİ
+**	    			    BİLGİSAYAR MÜHENDİSLİĞİ BÖLÜMÜ
+**	    			   NESNEYE DAYALI PROGRAMLAMA DERSİ
+**		    			    2020-2021 BAHAR DÖNEMİ
+**	
+**				    ÖDEV NUMARASI..........: Ödev 2 Soru 1
+**				    ÖĞRENCİ ADI............: Lütfi Mert Kahraman   
+**				    ÖĞRENCİ NUMARASI.......: B201210040
+**                  DERSİN ALINDIĞI GRUP...: 1. Öğretim D Grubu
+****************************************************************************/
+
+using System;
 
 namespace OOPHomework2MyString
 {
@@ -307,13 +318,6 @@ namespace OOPHomework2MyString
             BenimString benimString = new BenimString(gecici);
 
             return benimString;
-
-            //_karakterDizisi = "";                                        //String sıfırlanıyor.
-
-            //foreach (var karakter in gecici)                        //Geçici dizideki tüm karakterler stringe ekleniyor.
-            //{
-            //    _karakterDizisi += karakter;
-            //}
         }
     }
 }
